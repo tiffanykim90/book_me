@@ -1,0 +1,16 @@
+INSERT INTO service	(task)	VALUES	('Housekeeper');
+INSERT INTO service	(task)	VALUES	('Nail Technician');
+INSERT INTO service	(task)	VALUES	('Electrician');
+INSERT INTO service	(task)	VALUES	('Plumber');
+INSERT INTO service	(task)	VALUES	('HVAC');
+INSERT INTO service	(task)	VALUES	('Carpenter');
+INSERT INTO service	(task)	VALUES	('Mason');
+INSERT INTO service	(task)	VALUES	('Roofer');
+INSERT INTO service	(task)	VALUES	('Babysitter');
+INSERT INTO service	(task)	VALUES	('Caregiver');
+INSERT INTO service	(task)	VALUES	('Personal Driver');
+INSERT INTO service	(task)	VALUES	('Personal Cook');
+INSERT INTO service	(task)	VALUES	('Personal Gym Training');
+INSERT INTO service	(task)	VALUES	('Grounds Keeper');
+INSERT INTO service	(task)	VALUES	('Pet sitter');
+INSERT INTO service	(task)	VALUES	('Pet walker');
