@@ -12,6 +12,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
@@ -21,13 +22,10 @@ import lombok.ToString;
 public class Agent {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long agent_id;
+	private Long agentId;
 	
 	@EqualsAndHashCode.Exclude
-	private Long business_id;
-
-	@EqualsAndHashCode.Exclude
-	private String agent_name;
+	private String agentName;
 	
 	@EqualsAndHashCode.Exclude
 	@ToString.Exclude
@@ -35,16 +33,21 @@ public class Agent {
 	@JoinColumn(name = "business_id", nullable = false)
 	private MyBusiness mybusiness;
 	
-	@EqualsAndHashCode.Exclude
-	@ToString.Exclude
-	@ManyToMany(cascade = CascadeType.PERSIST)
-	@JoinTable(
-			name = "service",
-			joinColumns = @JoinColumn( name = "customer_id"),
-			inverseJoinColumns = @JoinColumn(name = "agent_id")
-			)
-	private Set<Service> services = new HashSet<>();
+	// Downward link to Customers
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
+    @OneToMany(mappedBy = "agent", cascade = CascadeType.ALL)
+    private Set<Customer> customers = new HashSet<>();
 	
-	
+ // Direct Many-to-Many link to Service
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinTable(
+        name = "agent_service", 
+        joinColumns = @JoinColumn(name = "agent_id"),
+        inverseJoinColumns = @JoinColumn(name = "service_id")
+    )
+    private Set<Service> services = new HashSet<>();
 	
 }

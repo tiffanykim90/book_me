@@ -9,23 +9,21 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.ToString;
-
 
 @Entity
 @Data
-public class Service {
+public class Customer {
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long serviceId;
-	private String task;
-	
 	@EqualsAndHashCode.Exclude
-	@ToString.Exclude
-	@ManyToMany(mappedBy = "services")
-	private Set<Agent> agents = new HashSet<>();	
+	private Long customerId;
+	
+	@ManyToOne
+	@JoinColumn(name = "agent_id", nullable = false)
+	private Agent agent;
+	
 }

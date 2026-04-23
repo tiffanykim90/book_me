@@ -1,10 +1,12 @@
 SET FOREIGN_KEY_CHECKS = 0;
+DROP TABLE IF EXISTS agent_service;
 DROP TABLE IF EXISTS service;
 DROP TABLE IF EXISTS customer;
 DROP TABLE IF EXISTS agent;
 DROP TABLE IF EXISTS my_business;
 SET FOREIGN_KEY_CHECKS = 1;
 
+-- 1. Create independent tables first
 CREATE TABLE my_business (
     business_id INT NOT NULL AUTO_INCREMENT,
     business_name VARCHAR(200) NOT NULL,
@@ -14,6 +16,14 @@ CREATE TABLE my_business (
     PRIMARY KEY (business_id)
 );
 
+-- 2. Create Service (needed by agent_service)
+CREATE TABLE service (
+    service_id INT NOT NULL AUTO_INCREMENT,
+    task VARCHAR(300),
+    PRIMARY KEY (service_id)
+);
+
+-- 3. Create Agent (needed by customer and agent_service)
 CREATE TABLE agent (
     agent_id INT NOT NULL AUTO_INCREMENT,
     business_id INT NOT NULL,
@@ -22,6 +32,7 @@ CREATE TABLE agent (
     FOREIGN KEY (business_id) REFERENCES my_business (business_id) ON DELETE CASCADE
 );
 
+-- 4. Create Customer (depends on agent)
 CREATE TABLE customer (
     customer_id INT NOT NULL AUTO_INCREMENT,
     agent_id INT NOT NULL,
@@ -29,10 +40,11 @@ CREATE TABLE customer (
     FOREIGN KEY (agent_id) REFERENCES agent (agent_id) ON DELETE CASCADE
 );
 
-CREATE TABLE service (
-    service_id INT NOT NULL AUTO_INCREMENT,
-    customer_id INT NOT NULL,
-    task VARCHAR(300),
-    PRIMARY KEY (service_id),
-    FOREIGN KEY (customer_id) REFERENCES customer (customer_id) ON DELETE CASCADE
+-- 5. Create Join Table LAST (depends on both agent AND service)
+CREATE TABLE agent_service (
+    agent_id INT NOT NULL,
+    service_id INT NOT NULL,
+    PRIMARY KEY (agent_id, service_id),
+    FOREIGN KEY (agent_id) REFERENCES agent (agent_id) ON DELETE CASCADE,
+    FOREIGN KEY (service_id) REFERENCES service (service_id) ON DELETE CASCADE
 );
