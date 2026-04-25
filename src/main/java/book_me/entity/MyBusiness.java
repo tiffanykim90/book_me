@@ -16,7 +16,7 @@ import lombok.Data;
 public class MyBusiness {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long businessId;
+	private Long business_Id;
 	
 	private String businessName;
 	private String streetAddress;
@@ -26,6 +26,6 @@ public class MyBusiness {
 	private String phone;
 	
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-	private Set<Agent> agent = new HashSet<>();
+	private Set<Agent> agents = new HashSet<>();
 	
 }

@@ -1,12 +1,12 @@
 spring:
   datasource:
-    username: book_me
-    password: your_password
     url: jdbc:mysql://localhost:3306/book_me
+    username: book_me
+    password: password
   jpa:
     hibernate:
-      ddl-auto: none
+      ddl-auto: create
     show-sql: true
   sql:
     init:
-      mode: always
+      mode: never
