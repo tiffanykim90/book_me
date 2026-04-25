@@ -30,7 +30,7 @@ public class Agent {
 	@EqualsAndHashCode.Exclude
 	@ToString.Exclude
 	@ManyToOne
-	@JoinColumn(name = "business_id", nullable = false)
+	@JoinColumn(name = "businessId", nullable = false)
 	private MyBusiness mybusiness;
 	
 	// Downward link to Customers
@@ -45,8 +45,8 @@ public class Agent {
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(
         name = "agent_service", 
-        joinColumns = @JoinColumn(name = "agent_id"),
-        inverseJoinColumns = @JoinColumn(name = "service_id")
+        joinColumns = @JoinColumn(name = "agent_Id"),
+        inverseJoinColumns = @JoinColumn(name = "service_Id")
     )
     private Set<Service> services = new HashSet<>();
 	
