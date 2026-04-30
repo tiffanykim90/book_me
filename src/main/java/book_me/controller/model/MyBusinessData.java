@@ -40,15 +40,16 @@ public class MyBusinessData {
 
     public MyBusiness toMyBusiness() {
         MyBusiness myBusiness = new MyBusiness();
-        myBusiness.setBusinessId(businessId);
-        myBusiness.setBusinessName(businessName);
-        myBusiness.setStreetAddress(streetAddress);
-        myBusiness.setCity(city);
-        myBusiness.setState(state);
-        myBusiness.setZip(zip);
-        myBusiness.setPhone(phone);
+        myBusiness.setBusinessId(this.businessId);
+        myBusiness.setBusinessName(this.businessName);
+        myBusiness.setStreetAddress(this.streetAddress);
+        myBusiness.setCity(this.city);
+        myBusiness.setState(this.state);
+        myBusiness.setZip(this.zip);
+        myBusiness.setPhone(this.phone);
         
         
         return myBusiness;
+   
     }
 }

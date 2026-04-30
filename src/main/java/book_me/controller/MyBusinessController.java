@@ -13,9 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import MyBusiness.service.myBusinessService;
+import book_me.service.MyBusinessService;
 import book_me.controller.model.MyBusinessData;
-import book_me.entity.MyBusiness;
 import lombok.extern.slf4j.Slf4j;
 
 @RestController
@@ -29,19 +28,18 @@ public class MyBusinessController {
 	//CREATE
 	@PostMapping
 	@ResponseStatus(code = HttpStatus.CREATED)
-	public MyBusinessData createdBusiness(@RequestBody MyBusinessData myBusiness) {
+	public MyBusinessData createdBusiness(@RequestBody MyBusinessData myBusinessData) {
 		log.info("Creating a new business: {}", myBusinessData);
-		return MyBusiness.saveAllBusinesses();
-		
+		return myBusinessService.saveBusiness(myBusinessData);
 	}
-	//READ
+	//READ ALL
 	@GetMapping
-    public List<MyBusinessData> getAllBusinesses() {
-        log.info("Retrieving all businesses");
-        return MyBusiness.retrieveAllBusinesses();
-
-}
-	//READ ONE - Get specific business details by ID
+	public List<MyBusinessData> getAllBusinesses(){
+		log.info("Retrieving all businesses");
+		return myBusinessService.retrieveAllBusinesses();
+	}
+	
+	//READ ONE - this id to get specific business details by ID
     @GetMapping("/{businessId}")
     public MyBusinessData getBusinessById(@PathVariable Long businessId) {
         log.info("Retrieving business with ID={}", businessId);

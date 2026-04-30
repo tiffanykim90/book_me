@@ -12,7 +12,8 @@ CREATE TABLE my_business (
     business_name VARCHAR(200) NOT NULL,
     street_address VARCHAR(250) NOT NULL,
     city VARCHAR(180),
-    zipcode VARCHAR(30),
+    zip VARCHAR(30),
+    phone VARCHAR(20),
     PRIMARY KEY (business_id)
 );
 
@@ -36,6 +37,9 @@ CREATE TABLE agent (
 CREATE TABLE customer (
     customer_id INT NOT NULL AUTO_INCREMENT,
     agent_id INT NOT NULL,
+    customer_firstName VARCHAR (60),
+    customer_lastName VARCHAR (100),
+    customer_email VARCHAR (120),
     PRIMARY KEY (customer_id),
     FOREIGN KEY (agent_id) REFERENCES agent (agent_id) ON DELETE CASCADE
 );
