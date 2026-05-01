@@ -39,8 +39,8 @@ public class ServiceController {
         log.info("Retrieving service with ID={}", serviceId);
         return myBusinessService.retrieveServiceById(serviceId);
     }
-    
-    @PutMapping("/{service}")
+    //UPDATE
+    @PutMapping("/service/{serviceId}")
     public ServiceData updateService(@PathVariable Long serviceId, @RequestBody ServiceData serviceData) {
     	serviceData.setServiceId(serviceId);
     	log.info("Updating a service with ID {}: {}",serviceId, serviceData);

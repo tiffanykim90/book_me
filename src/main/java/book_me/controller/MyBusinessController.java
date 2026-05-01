@@ -36,14 +36,14 @@ public class MyBusinessController {
 	}
 	//READ ALL
 	@GetMapping
-	public List<MyBusinessData> getAllBusinesses(){
+	public List<MyBusinessData> retrieveAllBusinesses(){
 		log.info("Retrieving all businesses");
 		return myBusinessService.retrieveAllBusinesses();
 	}
 	
 	//READ ONE - this id to get specific business details by ID
     @GetMapping("/{businessId}")
-    public MyBusinessData getBusinessById(@PathVariable Long businessId) {
+    public MyBusinessData retrieveBusinessById(@PathVariable Long businessId) {
         log.info("Retrieving business with ID={}", businessId);
         return myBusinessService.retrieveBusinessById(businessId);
     }

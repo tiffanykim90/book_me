@@ -33,12 +33,10 @@ public class MyBusiness {
 	private Set<Agent> agents = new HashSet<>();
 
 	public static MyBusinessData saveAllBusinesses() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	public static List<MyBusinessData> retrieveAllBusinesses() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 	

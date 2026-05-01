@@ -43,7 +43,7 @@ public class MyBusinessService {
 	@Transactional
 	public AgentData saveAgent(Long businessId, AgentData agentData ) {
 		MyBusiness mybusiness = businessDao.findById(businessId)
-				.orElseThrow(() -> new NoSuchElementException ("Business with ID" + businessId + "not found"));
+				.orElseThrow(() -> new NoSuchElementException ("Business with ID " + businessId + " not found"));
 	
 	Agent agent = findOrCreateAgent(agentData.getAgentId());
 	
@@ -244,6 +244,37 @@ public class MyBusinessService {
 		Customer customer = customerDao.findById(CustomerId)
 				.orElseThrow(() -> new NoSuchElementException("Customer with ID =" + CustomerId + " not found."));
 		customerDao.delete(customer);
+	}
+	@Transactional(readOnly = false)
+	public AgentData addServiceToAgent(Long businessId, Long agentId, Long serviceId) {
+	    Agent agent = findAgentById(businessId, agentId);
+	    book_me.entity.Service service = findServiceById(serviceId);
+	    
+	    agent.getServices().add(service);
+	    return new AgentData(agentDao.save(agent));
+	    
+	    
+	}
+
+	private Agent findAgentById(Long businessId, Long agentId) {
+		Agent agent = agentDao.findById(agentId)
+				.orElseThrow(() -> new NoSuchElementException(
+						"Agent with ID=" + agentId + " was not found."));
+		if(!agent.getMybusiness().getBusinessId().equals(businessId)) {
+			throw new IllegalArgumentException(
+					"Agent with ID=" + agentId + " does not belong to business with ID" + businessId);
+			
+		}
+		return agent;
+	}
+
+	@Transactional(readOnly = false)
+	public void removeServiceFromAgent(Long businessId, Long agentId, Long serviceId) {
+	    Agent agent = findAgentById(businessId, agentId);
+	    book_me.entity.Service service = findServiceById(serviceId);
+	    
+	    agent.getServices().remove(service);
+	    agentDao.save(agent);
 	}
 }
 

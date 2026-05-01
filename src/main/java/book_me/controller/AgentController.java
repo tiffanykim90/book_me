@@ -54,10 +54,28 @@ public class AgentController {
 
     // 5. DELETE - Remove an agent
     @DeleteMapping("/{agentId}")
+    @ResponseStatus(HttpStatus.OK)
     public Map<String, String> deleteAgentById(@PathVariable Long businessId, 
                                                @PathVariable Long agentId) {
         log.info("Deleting agent ID={} from business ID={}", agentId, businessId);
         myBusinessService.deleteAgentById(businessId, agentId);
         return Map.of("message", "Agent with ID=" + agentId + " deleted successfully.");
+    }
+    //6.ADD SERVICE TO AGENT
+    @PutMapping("/{agentId}/service/{serviceId}")
+    public AgentData addServiceToAgent(@PathVariable Long businessId,
+    									@PathVariable Long agentId,
+    									@PathVariable Long serviceId) {
+    	log.info("Adding service ID={} to agent ID={} for business ID={}", serviceId, agentId, businessId);
+    	return myBusinessService.addServiceToAgent(businessId, agentId, serviceId);
+    }
+    //7. REMOVE SERVICE FROM AGENT
+    @DeleteMapping("/{agentId}/service/{serviceId}")
+    public Map<String, String> removeServiceFromAgent(@PathVariable Long businessId,
+    													@PathVariable Long agentId,
+    													@PathVariable Long serviceId){
+    	log.info("Removing service ID={} from agent ID={} for business ID={}, serviceId, agentId, businessId");
+    	myBusinessService.removeServiceFromAgent(businessId, agentId, serviceId);
+    	return Map.of("message", "Service" + serviceId + "unlinked from agent" + agentId);
     }
 }
